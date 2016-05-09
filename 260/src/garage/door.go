@@ -41,21 +41,29 @@ func (d *Door) Click(input string) error {
   }
 
   d.CurrentState = d.State()
-  // Time to make the doughnuts
-  if d.CurrentState == "CLOSED" {
-    d.ChangeState("OPENING")
-  } else if d.CurrentState == "CLOSING" {
-    d.ChangeState("STOPPED_WHILE_CLOSING")
-  } else if d.CurrentState == "OPEN" {
-    d.ChangeState("CLOSING")
-  } else if d.CurrentState == "OPENING" {
-    d.ChangeState("STOPPED_WHILE_OPENING")
-  } else if d.CurrentState == "STOPPED_WHILE_CLOSING" {
-    d.ChangeState("OPENING")
-  } else if d.CurrentState == "STOPPED_WHILE_OPENING" {
-    d.ChangeState("CLOSING")
-  }
 
+  // Time to make the doughnuts
+  if input == "button_clicked" {
+    if d.CurrentState == "CLOSED" {
+      d.ChangeState("OPENING")
+    } else if d.CurrentState == "CLOSING" {
+      d.ChangeState("STOPPED_WHILE_CLOSING")
+    } else if d.CurrentState == "OPEN" {
+      d.ChangeState("CLOSING")
+    } else if d.CurrentState == "OPENING" {
+      d.ChangeState("STOPPED_WHILE_OPENING")
+    } else if d.CurrentState == "STOPPED_WHILE_CLOSING" {
+      d.ChangeState("OPENING")
+    } else if d.CurrentState == "STOPPED_WHILE_OPENING" {
+      d.ChangeState("CLOSING")
+    }
+  } else if input == "cycle_complete" {
+    if d.CurrentState == "CLOSING" {
+      d.ChangeState("CLOSED")
+    } else if d.CurrentState == "OPENING" {
+      d.ChangeState("OPEN")
+    }
+  }
   return nil
 }
 
